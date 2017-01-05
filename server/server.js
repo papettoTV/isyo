@@ -15,7 +15,7 @@ app.start = function() {
       var explorerPath = app.get('loopback-component-explorer').mountPath;
       console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
     }
-	  app.use(loopback.static('public'));
+	  app.use(loopback.static('client/public'));
   });
 };
 
