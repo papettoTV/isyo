@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Main from './main'
-import Input from './input'
+import Header from './header'
 
 export default class App extends Component {
 
@@ -13,27 +13,28 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		// window.addEventListener('hashchange', () => {
-		// 	console.log("hashchange");
-		// 	this.setState({
-		// 		route: "/input"
-		// 	})
-		// })
+		console.log("componentDidMount app");
 	}
 
 	componentWillUnmount() {
 	}
 
-	render(){
-		let Child
-		switch (this.state.route) {
-			case '/main': Child = Main; break;
-			case '/input': Child = Input; break;
-			default:      Child = Main;
-		}
+	viewChange(view){
+		console.log("call viewChange in app.js",view);
+		// console.log(this.state);
+		// this.setState(state);
+		//
+		var state = {route:view};
 
+		this.setState(state);
+	}
+
+	render(){
 		return(
-			<Child />
+			<div>
+			<Header />
+         { this.props.children }
+			</div>
 		)
 	}
 }

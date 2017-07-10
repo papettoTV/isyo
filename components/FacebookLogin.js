@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
-
-import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
+import { Link } from 'react-router'
 
 export default class fbLogin extends Component {
 
@@ -9,22 +8,32 @@ export default class fbLogin extends Component {
 		super(props);
 		// bindしないとhandleClick内でthisがnull
 		this.onClicked = this.onClicked.bind(this);
+
+    this.clicked = false;
+
+		this.state = {
+			clicked : false
+		};
+
 	}
 
 	responseFacebook(response){
 		console.log("responseFacebook");
 		console.log(response);
+    console.log(this);
+    if(response){
+      this.setState({clicked:true});
+    }
 	}
 
 	onClicked(response){
 		console.log("onClicked");
-		console.log(this.props);
-		this.props.handleView("input");
-		// console.log(response);
+    console.log(this);
 	}
 
 	componentDidMount() {
 		console.log("fblogin componentDidMount");
+
 	}
 
 	componentWillMount(){
@@ -37,14 +46,22 @@ export default class fbLogin extends Component {
 	render(){
 
 		console.log("FacebookLogin render");
-		console.log(this.props);
-		return(
-			<FacebookLogin
-			appId="573141182862561"
-			autoLoad={true}
-			fields="name,email,picture"
-			onClick={this.onClicked}
-			callback={this.responseFacebook} />
-		)
+		console.log(this.state);
+    if(this.state.clicked!==true){
+      return(
+        <FacebookLogin
+        appId="573141182862561"
+        autoLoad={true}
+        fields="name,email,picture"
+        onClick={this.onClicked}
+        callback={this.responseFacebook.bind(this)} />
+      )
+    }else{
+      return(
+        <div>
+        <Link to="/input" className="btn btn-xl" >書いてみる</Link>
+        </div>
+      )
+    }
 	}
 }

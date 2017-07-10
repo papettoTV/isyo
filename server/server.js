@@ -2,8 +2,17 @@
 
 var loopback = require('loopback');
 var boot = require('loopback-boot');
-
+var bodyParser = require("body-parser");
+var path = require("path");
 var app = module.exports = loopback();
+
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// app.set('views', path.join(__dirname, 'views'));
+app.set('views', './server/views'); 
+app.set('view engine', 'jade');
 
 app.start = function() {
   // start the web server
