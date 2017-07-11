@@ -42,26 +42,33 @@ module.exports = function(server) {
     };
         // Error: No default engine was specified and no extension was provided.
         // res.render('save');
-        res.json(json);
 
-    // // save data & add uniq ID
-    // // isyo.save(save_data,function(data){
-    // isyo.create(save_data,function(err,obj){
-    //   console.log("create");
-    //   console.log(obj);
-    //   console.log(err);
-    //   var id = obj.id;
-    //   // make uniq hash key
-    //   var hash = hashids.encode(id);
-    //   // update 
-    //   // isyo.update({id:id,hash:hash},function(err,obj){
-    //   // console.log("create");
-    //   // console.log(obj);
-    //   // console.log(err);
-    //     // response
-    //     res.render('save');
-    //   // });
-    // });
+    // save data & add uniq ID
+    isyo.create(save_data,function(err,obj){
+      console.log("create");
+      console.log(obj);
+      // var hash = hashids.encode(obj.id);
+      var hash = hashids.encodeHex(obj.id);
+      // console.log(obj);
+      console.log("hash",hash);
+      // update 
+      obj.updateAttributes({hash:hash}, function(err, obj) {
+        console.log("update");
+        console.log(err);
+        // response
+        res.json(json);
+      });
+    });
+  });
+
+
+  router.get('/isyo/:isyoid', function (req, res) {
+
+    var isyoid = req.params.isyoid;
+
+	  console.log("view=isyodetail",isyoid);
+
+	  res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
   });
 
   server.use(router);
