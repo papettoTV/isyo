@@ -8,39 +8,46 @@ export default class Show extends Component {
 		this.state = {
 			body: null,
 		};
+
+    console.log("show.js constructor");
+    console.log(this.props.location.query);
+
 	}
 	componentDidMount() {
-		console.log("componentDidMount");
-	}
+		console.log("show.js componentDidMount");
 
-	responseFacebook(response){
-    console.log("responseFacebook");
-    if(response){
+    var that = this;
+
       $.ajax({
-        url: "/get",
-        dataType: 'json',
-        type: 'POST',
-        data: data,
-        success: function(data) {
-          console.log("get success");
-          this.setState({body: data})
+        url: '/api/isyos?filter={"where":{"hash":"' + this.props.location.query.id + '"}}',      
+        type: 'GET',
+        success: function(res) {
+          console.log("get api success",res);
+          // this.setState({data: data})
+
+          var message = "<p>" + res[0].body.replace("\n","</p><p>") + "</p>";
+          that.setState({isLoading: false,message:message});
+
+          // TODO 確認画面表示
+          // window.location.href = '/#/show';
         },
-        error: function(xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
-        }.bind(this)
+      }).fail((responseData) => {
+        if (responseData.responseCode) {
+          console.error(responseData.responseCode);
+        }
       });
-    }
 	}
 
 	componentWillUnmount() {
-		console.log("componentWillUnmount");
+		console.log("show.js componentWillUnmount");
 	}
 	render(){
+    console.log("render");
+    console.dir(this.props);
 		return(
 			<div className="bgimage">
 			<div className="container">
-			<div className="lined-paper">
-      <p>{this.state.body}</p>
+      <div className="lined-paper" dangerouslySetInnerHTML={{ __html: this.state.message}}>
       </div>
       </div>
 			</div>
