@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router'
 
 export default class SaveButton extends Component {
   constructor(props) {

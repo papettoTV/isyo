@@ -59,7 +59,7 @@ export default class Main extends Component {
       <a href="/#" className="page-scroll btn btn-xl" onClick={this.onClicked} >Tell Me More{this.state.myState1}</a>
       <Link to="/input" className="page-scroll btn btn-xl" >Link input</Link>
       */}
-      <FbLogin updateState={this.updateState.bind(this)} ></FbLogin>
+      <FbLogin updateState={this.updateState.bind(this)} loggedLabel="書いてみる"></FbLogin>
       </div>
       </div>
       </header>
