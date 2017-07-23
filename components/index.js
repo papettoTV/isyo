@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {render} from 'react-dom'
 
 // First we import some modules...
-import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 
 export default class Index extends Component {
 
