@@ -12,12 +12,13 @@ module.exports = function(server) {
 	  console.log("view=top");
 
     var isyo = server.models.isyo;
-    isyo.status(function(a,b){
-      console.log("Isyo.status");
-      console.log(a,b);
-    });
+    // isyo.status(function(a,b){
+    //   console.log("Isyo.status");
+    //   console.log(a,b);
+    // });
 
-	  res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
+	  // res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
+	  res.render('show');
   });
   // router.get('/:view', function (req, res) {
 	 //  console.log("view=",req.params.view);

@@ -74,11 +74,20 @@ export default class fbLogin extends Component {
       </FacebookProvider>
       )
     }else{
-      return(
-        <div>
-        <Link to="/input" className="btn btn-xl" >書いてみる</Link>
-        </div>
-      )
+      if(this.props.isyoId){
+        var link = "/edit/" + this.props.isyoId;
+        return(
+          <div>
+          <Link to={{pathname:link,state:{body:this.props.body}}} className="btn btn-xl" >{this.props.loggedLabel}</Link>
+          </div>
+        )
+      }else{
+        return(
+          <div>
+          <Link to="/input" className="btn btn-xl" >{this.props.loggedLabel}</Link>
+          </div>
+        )
+      }
     }
 	}
 }

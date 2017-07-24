@@ -54,7 +54,7 @@ export default class Main extends Component {
       <div className="container">
       <div className="intro-text">
       <div className="intro-heading">遺書を書いてみよう</div>
-      <FbLogin updateState={this.updateState.bind(this)} ></FbLogin>
+      <FbLogin updateState={this.updateState.bind(this)} loggedLabel="書いてみる"></FbLogin>
       </div>
       </div>
       </header>
