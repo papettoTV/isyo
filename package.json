@@ -33,6 +33,7 @@
     "react-addons-css-transition-group": "^15.5.2",
     "react-bootstrap": "^0.30.6",
     "react-dom": "^15.3.2",
+    "react-facebook": "^4.0.14",
     "react-facebook-login": "^3.4.2",
     "react-redirect": "^1.0.0",
     "react-router": "^3.0.2",

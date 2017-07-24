@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
 import SaveButton from './saveButton';
+import FacebookProvider, { Share} from 'react-facebook';
 
 export default class Input extends Component {
 
@@ -42,7 +43,10 @@ export default class Input extends Component {
   }
 
 	render(){
-    const body = 
+		let isyo_id = 123;
+		let share_url = location.protocol + "//" + location.host + "/isyo/" + isyo_id;
+		let display="遺書をここに残しました";
+    const body =
 			<div className="bgimage">
 			<div className="container">
       {this.state.show ?
@@ -53,13 +57,18 @@ export default class Input extends Component {
         <br />
         <div className="lined-paper" dangerouslySetInnerHTML={{ __html: this.state.message}}>
         </div>
-      <div className="checkbox">
       <label>
-      <input type="checkbox" id="fb_notification" name="fb_notification"/>保存したことをfacebook上で通知する。
+			<FacebookProvider appId="336671963423279">
+			<Share href={share_url} hashtag="#遺書一筆">
+			<button type="button" className="btn btn-primary btn-lg">遺書を書いたことをfacebook上でシェアする</button>
+			</Share>
+			</FacebookProvider>
       </label>
-      </div>
+			<div>
+			<p>※書いた内容自体は本人しか見れません。</p>
+			</div>
         </div>
-        : 
+        :
         <div>
       <div className="form-group">
       <textarea id="body" name="body" placeholder="ここに遺書を残してみましょう。" className="form-control" rows="20"></textarea>
@@ -78,6 +87,6 @@ export default class Input extends Component {
       </CSSTransitionGroup>
       </div>
     );
-		
+
 	}
 }

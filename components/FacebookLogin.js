@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import FacebookLogin from 'react-facebook-login';
+import FacebookProvider, { Login } from 'react-facebook';
+
 import { Link } from 'react-router'
 
 export default class fbLogin extends Component {
@@ -43,18 +44,32 @@ export default class fbLogin extends Component {
 		console.log("fblogin componentWillUpdate");
 	}
 
+	handleError(e){
+			console.log("handleError",e);
+	}
+
 	render(){
 
 		console.log("FacebookLogin render");
 		console.log(this.state);
     if(this.state.clicked!==true){
       return(
-        <FacebookLogin
-        appId="573141182862561"
-        autoLoad={true}
-        fields="name,email,picture"
-        onClick={this.onClicked}
-        callback={this.responseFacebook.bind(this)} />
+				<FacebookProvider appId="336671963423279">
+        <Login
+          scope="name"
+					display=""
+          onResponse={this.responseFacebook.bind(this)}
+          onError={this.handleError.bind(this)}
+          render={({ isLoading, isWorking, onClick }) => (
+            <span onClick={onClick}>
+              Facebookでログイン
+              {(isLoading || isWorking) && (
+                <span>Loading...</span>
+              )}
+            </span>
+          )}
+        />
+      </FacebookProvider>
       )
     }else{
       return(
