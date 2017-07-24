@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import FbLogin from './FacebookLogin';
-import { Link } from 'react-router'
 
 export default class Main extends Component {
 
 	constructor(props) {
 		super(props);
 
-		
+
 		this.state = {
 			value: null,
 			myState1 : null,
@@ -19,7 +18,7 @@ export default class Main extends Component {
 	}
 
 	updateState(state){
-		console.log("call updateState");
+		console.log("call updateState",state);
 		this.setState(state);
 
 		//親コンポーネントを更新
@@ -48,17 +47,13 @@ export default class Main extends Component {
 		//子コンポーネントのステートを更新
 		this.props.viewChange("input");
 	}
-			
+
 	render(){
 		return(
       <header>
       <div className="container">
       <div className="intro-text">
       <div className="intro-heading">遺書を書いてみよう</div>
-      {/*
-      <a href="/#" className="page-scroll btn btn-xl" onClick={this.onClicked} >Tell Me More{this.state.myState1}</a>
-      <Link to="/input" className="page-scroll btn btn-xl" >Link input</Link>
-      */}
       <FbLogin updateState={this.updateState.bind(this)} loggedLabel="書いてみる"></FbLogin>
       </div>
       </div>
