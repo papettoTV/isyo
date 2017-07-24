@@ -19,13 +19,15 @@ export default class fbLogin extends Component {
 	}
 
 	responseFacebook(response){
-		console.log("responseFacebook");
+		console.log("FacebookLogin.js responseFacebook");
 		console.log(response);
-    console.log(this);
     if(response){
       this.setState({clicked:true});
+			this.props.updateState(response);
     }
 	}
+
+
 
 	onClicked(response){
 		console.log("onClicked");
