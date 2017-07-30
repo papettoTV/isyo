@@ -3,6 +3,7 @@
 var path    = require("path");
 var Hashids = require('hashids');
 var hashids = new Hashids('', 10);
+var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 module.exports = function(server) {
   // Install a `/` route that returns server status
@@ -63,7 +64,8 @@ module.exports = function(server) {
   });
 
 
-  router.get('/isyo/:isyoid', function (req, res) {
+  // router.get('/isyo/:isyoid', function (req, res) {
+  router.get('/isyo/:isyoid', ensureLoggedIn('/'), function (req, res) {
 
     var isyoid = req.params.isyoid;
 

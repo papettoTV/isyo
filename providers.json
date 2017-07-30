@@ -9,4 +9,5 @@
    "callbackPath": "/auth/facebook/callback",
    "successRedirect": "/auth/account",
    "scope": ["email"]
- ,
+ }
+}

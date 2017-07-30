@@ -4,7 +4,8 @@
       "loopback/common/models",
       "loopback/server/models",
       "../common/models",
-      "./models"
+      "./models",
+      "./node_modules/loopback-component-passport/lib/models"
     ],
     "mixins": [
       "loopback/common/mixins",
@@ -19,6 +20,14 @@
   "AccessToken": {
     "dataSource": "mongodb_dev",
     "public": false
+  },
+  "userIdentity": {
+    "dataSource": "mongodb_dev",
+    "public": true
+  },
+  "userCredential": {
+    "dataSource": "mongodb_dev",
+    "public": true
   },
   "ACL": {
     "dataSource": "mongodb_dev",

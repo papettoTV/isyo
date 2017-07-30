@@ -10,37 +10,56 @@ var app = module.exports = loopback();
 var loopbackPassport = require('loopback-component-passport');
 var PassportConfigurator = loopbackPassport.PassportConfigurator;
 var passportConfigurator = new PassportConfigurator(app);
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
+/**
+ * Flash messages for passport
+ *
+ * Setting the failureFlash option to true instructs Passport to flash an
+ * error message using the message given by the strategy's verify callback,
+ * if any. This is often the best approach, because the verify callback
+ * can make the most accurate determination of why authentication failed.
+ */
+var flash      = require('express-flash');
+
+// attempt to build the providers/passport config
+var config = {};
+try {
+  config = require('../providers.json');
+} catch (err) {
+  console.trace(err);
+  process.exit(1); // fatal
+}
 
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 
 // The access token is only available after boot
 app.middleware('auth', loopback.token({
   model: app.models.accessToken,
 }));
 
-app.middleware('session:before', cookieParser(app.get('cookieSecret')));
+// app.middleware('session:before', cookieParser(app.get('cookieSecret')));
+// app.middleware('session:before', cookieParser());
 app.middleware('session', session({
-  secret: 'kitty',
-  saveUninitialized: true,
-  resave: true,
+  // secret: 'kitty',
+  secret: 'isyocookie',
+  saveUninitialized: false,
+  resave: false,
+  cookie: {
+    maxAge: 2678400000 // 31 days
+  },
 }));
+// app.use(session({
+//   // key: "mysite.sid.uid.whatever",
+//   // secret: process.env["SESSION_SECRET"],
+//   cookie: {
+//     maxAge: 2678400000 // 31 days
+//   },
+// }));
 passportConfigurator.init();
-
-passportConfigurator.setupModels({
-  userModel: app.models.user,
-  userIdentityModel: app.models.userIdentity,
-  userCredentialModel: app.models.userCredential,
-});
-for (var s in config) {
-  var c = config[s];
-  c.session = c.session !== false;
-  passportConfigurator.configureProvider(s, c);
-}
-
-var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 // We need flash messages to see passport errors
 app.use(flash());
@@ -74,3 +93,14 @@ boot(app, __dirname, function(err) {
   if (require.main === module)
     app.start();
 });
+
+passportConfigurator.setupModels({
+  userModel: app.models.user,
+  userIdentityModel: app.models.userIdentity,
+  userCredentialModel: app.models.userCredential,
+});
+for (var s in config) {
+  var c = config[s];
+  c.session = c.session !== false;
+  passportConfigurator.configureProvider(s, c);
+}
