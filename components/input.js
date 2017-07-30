@@ -10,9 +10,11 @@ export default class Input extends Component {
 		this.state = {
 			show: false,
 			message: null,
+			userId: null
 		};
 
 		this.showBody = this.showBody.bind(this);
+		console.log("input.js constructor",this.props);
 	}
 	componentDidMount() {
 		console.log("componentDidMount");
@@ -46,6 +48,12 @@ export default class Input extends Component {
 		let isyo_id = 123;
 		let share_url = location.protocol + "//" + location.host + "/isyo/" + isyo_id;
 		let display="遺書をここに残しました";
+		let userId=null;
+
+		if(this.props.location.state.userId){
+			userId=this.props.location.state.userId;
+		}
+
     const body =
 			<div className="bgimage">
 			<div className="container">
@@ -58,21 +66,20 @@ export default class Input extends Component {
         <div className="lined-paper" dangerouslySetInnerHTML={{ __html: this.state.message}}>
         </div>
       <label>
-			<FacebookProvider appId="336671963423279">
-			<Share href={share_url} hashtag="#遺書一筆">
-			<button type="button" className="btn btn-primary btn-lg">遺書を書いたことをfacebook上でシェアする</button>
-			</Share>
-			</FacebookProvider>
       </label>
 			<div>
-			<p>※書いた内容自体は本人しか見れません。</p>
+			<p>※書いた内容は本人しか見れません。</p>
+			<p>※今後のversion upで、課金した人にだけ公開する機能を作成予定です。</p>
 			</div>
         </div>
         :
         <div>
       <div className="form-group">
       <textarea id="body" name="body" placeholder="ここに遺書を残してみましょう。" className="form-control" rows="20"></textarea>
+      <input type="hidden" id="userId" name="userId" value={userId} />
       </div>
+			<p>※書いた内容は書いた本人しか見れません。</p>
+			<p>※今後のversion upで、課金した人にだけ公開する機能を作成予定です。</p>
       <SaveButton showBody={this.showBody}/>
         </div>
       }

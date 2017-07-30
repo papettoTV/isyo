@@ -1,5 +1,6 @@
 import React , { Component } from 'react'
 import {render} from 'react-dom'
+import { Router, Route, IndexRoute, Link, hashHistory , RouteHandler } from 'react-router'
 import App from '../../../components/app'
 import Main from '../../../components/main'
 // import FbLogin from '../../../components/FacebookLogin';
@@ -7,7 +8,7 @@ import Main from '../../../components/main'
 import Input from '../../../components/input';
 import Show from '../../../components/show';
 import FbLogin from '../../../components/FacebookLogin';
-import { Router, Route, IndexRoute, Link, hashHistory , RouteHandler } from 'react-router'
+import Edit from '../../../components/edit';
 
 // render(
 //   <App title="title1" />,
@@ -29,6 +30,7 @@ render((
     <Route path="/" component={App}>
       <IndexRoute component={Main} />
       <Route path="/input" component={Input} />
+      <Route path="/edit" component={Edit} />
       <Route path="/show" component={Show} />
     </Route>
   </Router>

@@ -52,7 +52,7 @@ module.exports = function(server) {
       var hash = hashids.encodeHex(obj.id);
       // console.log(obj);
       console.log("hash",hash);
-      // update 
+      // update
       obj.updateAttributes({hash:hash}, function(err, obj) {
         console.log("update");
         console.log(err);
@@ -69,7 +69,8 @@ module.exports = function(server) {
 
 	  console.log("view=isyodetail",isyoid);
 
-	  res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
+	  // res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
+	  res.render('show');
   });
 
   server.use(router);

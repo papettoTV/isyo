@@ -14,7 +14,8 @@ export default class fbLogin extends Component {
     this.clicked = false;
 
 		this.state = {
-			clicked : false
+			clicked : false,
+			userId : null
 		};
 
 	}
@@ -23,7 +24,7 @@ export default class fbLogin extends Component {
 		console.log("FacebookLogin.js responseFacebook");
 		console.log(response);
     if(response){
-      this.setState({clicked:true});
+      this.setState({clicked:true,userId:response.id});
 			this.props.updateState(response);
     }
 	}
@@ -65,17 +66,20 @@ export default class fbLogin extends Component {
         callback={this.responseFacebook.bind(this)} />
       )
     }else{
+
+			var link;
       if(this.props.isyoId){
-        var link = "/edit/" + this.props.isyoId;
+        link = "/edit/" + this.props.isyoId;
         return(
           <div>
           <Link to={{pathname:link,state:{body:this.props.body}}} className="btn btn-xl" >{this.props.loggedLabel}</Link>
           </div>
         )
       }else{
+        link = "/input";
         return(
           <div>
-          <Link to="/input" className="btn btn-xl" >{this.props.loggedLabel}</Link>
+          <Link to={{pathname:link,state:{userId:this.state.userId}}} className="btn btn-xl" >{this.props.loggedLabel}</Link>
           </div>
         )
       }

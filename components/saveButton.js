@@ -16,6 +16,7 @@ export default class SaveButton extends Component {
 
       var data = {
         body : $("#body").val(),
+        userId : $("#userId").val(),
         fb_notification : $("#fb_notification").is(':checked'),
       };
 
