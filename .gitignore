@@ -19,4 +19,3 @@ node_modules
 npm-debug.log
 client/public/dist/bundle.js
 client/public/dist/client/public/bundle.js.map
-client/public/js/index.js
