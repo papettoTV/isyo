@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router'
 import FbLogin from './FacebookLogin';
+import Isyo from '../common/models/isyo';
 
 export default class Show extends Component {
 
@@ -20,24 +22,28 @@ export default class Show extends Component {
 
     var that = this;
 
-      $.ajax({
-        url: '/api/isyos?filter={"where":{"hash":"' + this.props.params.isyoId + '"}}',      
-        type: 'GET',
-        success: function(res) {
-          console.log("get api success",res);
-          // this.setState({data: data})
+		var userId = "599c4a3efca924e3759c7875";
 
-          var message = "<p>" + res[0].body.replace("\n","</p><p>") + "</p>";
-          that.setState({isLoading: false,message:message,messageRow:res[0].body});
-
-          // TODO 確認画面表示
-          // window.location.href = '/#/show';
-        },
-      }).fail((responseData) => {
-        if (responseData.responseCode) {
-          console.error(responseData.responseCode);
-        }
-      });
+		let isyo = new Isyo;
+		// isyo.getIsyo(userId,function(isyo){
+		// 	console.log("show.js isyo.getIsyo",isyo);
+		// });
+		// // TODO model内 で処理するようリファクタリングする
+    //   $.ajax({
+    //     url: '/api/isyos?filter={"where":{"hash":"' + this.props.params.isyoId + '"}}',
+    //     type: 'GET',
+    //     success: function(res) {
+    //       console.log("get api success",res);
+    //       // this.setState({data: data})
+		//
+    //       var message = "<p>" + res[0].body.replace("\n","</p><p>") + "</p>";
+    //       that.setState({isLoading: false,message:message,messageRow:res[0].body});
+    //     },
+    //   }).fail((responseData) => {
+    //     if (responseData.responseCode) {
+    //       console.error(responseData.responseCode);
+    //     }
+    //   });
 	}
 
 	componentWillUnmount() {
@@ -51,7 +57,9 @@ export default class Show extends Component {
 			<div className="container">
       <div className="lined-paper" dangerouslySetInnerHTML={{ __html: this.state.message}}>
       </div>
-      <FbLogin loggedLabel="編集する" isyoId={this.props.params.isyoId} body={this.state.messageRow} />
+			<Link to="/edit" >
+			<button>編集する</button>
+			</Link>
       </div>
 			</div>
 		)

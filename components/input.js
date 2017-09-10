@@ -50,9 +50,9 @@ export default class Input extends Component {
 		let display="遺書をここに残しました";
 		let userId=null;
 
-		if(this.props.location.state.userId){
-			userId=this.props.location.state.userId;
-		}
+		// if(!!this.props.location.state.userId){
+		// 	userId=this.props.location.state.userId;
+		// }
 
     const body =
 			<div className="bgimage">
@@ -76,7 +76,9 @@ export default class Input extends Component {
         <div>
       <div className="form-group">
       <textarea id="body" name="body" placeholder="ここに遺書を残してみましょう。" className="form-control" rows="20"></textarea>
+			{/*
       <input type="hidden" id="userId" name="userId" value={userId} />
+			*/}
       </div>
 			<p>※書いた内容は書いた本人しか見れません。</p>
 			<p>※今後のversion upで、課金した人にだけ公開する機能を作成予定です。</p>

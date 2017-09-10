@@ -9,6 +9,10 @@ module.exports = function(server) {
   // Install a `/` route that returns server status
   var router = server.loopback.Router();
   // router.get('/', server.loopback.status());
+  router.get('/', function (req, res) {
+    console.log("get /",res.req.user);
+	  res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
+  });
   router.get('/top', function (req, res) {
 	  console.log("view=top");
 
@@ -21,15 +25,28 @@ module.exports = function(server) {
 	  // res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
 	  res.render('show');
   });
-  // router.get('/:view', function (req, res) {
-	 //  console.log("view=",req.params.view);
-	 //  res.sendFile(path.join(__dirname+'/../../client/public/save.html'));
-  // });
+
+  router.get('/my', ensureLoggedIn('/notlogon'), function (req, res) {
+	  res.sendFile(path.join(__dirname+'/../../client/public/my.html'));
+  });
+
+  router.get('/logon', ensureLoggedIn('/notlogon'), function (req, res) {
+    // console.log("/logon",res.req);
+    console.log("/logon",res.req.user);
+
+    var userId = res.req.user.id;
+
+	  res.json({'userId':userId});
+  });
+
+  router.get('/notlogon', function (req, res) {
+	  res.json({'userId':null});
+  });
 
   // save isyo
   server.post('/save', function (req, res) {
 
-    console.log("post /save");
+    console.log("post /save",res.req.user);
     console.log(req.body);
     // console.log(res);
 
@@ -47,7 +64,7 @@ module.exports = function(server) {
 
     // save data & add uniq ID
     isyo.create(save_data,function(err,obj){
-      console.log("create");
+      console.log("isyo.create");
       console.log(obj);
       // var hash = hashids.encode(obj.id);
       var hash = hashids.encodeHex(obj.id);

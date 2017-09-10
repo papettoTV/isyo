@@ -1,6 +1,6 @@
 import React , { Component } from 'react'
 import {render} from 'react-dom'
-import { Router, Route, IndexRoute, Link, hashHistory , RouteHandler } from 'react-router'
+import { Router, Route, IndexRoute, Link, hashHistory ,  Redirect} from 'react-router'
 import App from '../../../components/app'
 import Main from '../../../components/main'
 // import FbLogin from '../../../components/FacebookLogin';
@@ -9,6 +9,7 @@ import Input from '../../../components/input';
 import Show from '../../../components/show';
 import FbLogin from '../../../components/FacebookLogin';
 import Edit from '../../../components/edit';
+import Login from '../../../components/login';
 
 // render(
 //   <App title="title1" />,
@@ -32,6 +33,8 @@ render((
       <Route path="/input" component={Input} />
       <Route path="/edit" component={Edit} />
       <Route path="/show" component={Show} />
+      <Route path="/login" component={Login} />
+      <Route path="/*" component={Main} />
     </Route>
   </Router>
 ), document.getElementById('main'))

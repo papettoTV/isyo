@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 
-export default class SaveButton extends Component {
+export default class LoginButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,31 +12,16 @@ export default class SaveButton extends Component {
   }
 
   handleClick() {
-    this.setState({isLoading: true});
-
-      var data = {
-        body : $("#body").val(),
-        userId : $("#userId").val(),
-        fb_notification : $("#fb_notification").is(':checked'),
-      };
-
-    console.log("val",data);
-
-    var that = this;
+    console.log("handleClick");
 
     $.ajax({
-      url: "/save",
-      dataType: 'json',
-      type: 'POST',
-      data: data,
+      url: "/login",
+      dataType: 'text',
+      type: 'GET',
+      data: null,
       success: function(res) {
-        console.log("post success",res);
-        // this.setState({data: data})
-        that.setState({isLoading: false});
-        // that.props.showBody(res.data.body);
-
-        // 確認画面表示
-        window.location.href = '/#/show';
+        console.log("get success",res);
+        // move show view
       },
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -53,7 +38,7 @@ export default class SaveButton extends Component {
       bsStyle="primary"
       disabled={isLoading}
       onClick={!isLoading ? this.handleClick : null}>
-      {isLoading ? '保存中...' : '保存する'}
+      ログイン
       </Button>
     );
   }
