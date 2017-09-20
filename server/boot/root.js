@@ -66,6 +66,8 @@ module.exports = function(server) {
     isyo.create(save_data,function(err,obj){
       console.log("isyo.create");
       console.log(obj);
+
+      json.id=obj.id;
       // var hash = hashids.encode(obj.id);
       var hash = hashids.encodeHex(obj.id);
       // console.log(obj);
@@ -84,12 +86,16 @@ module.exports = function(server) {
   // router.get('/isyo/:isyoid', function (req, res) {
   router.get('/isyo/:isyoid', ensureLoggedIn('/'), function (req, res) {
 
-    var isyoid = req.params.isyoid;
+    var isyoId = req.params.isyoid;
 
-	  console.log("view=isyodetail",isyoid);
+	  console.log("view=isyodetail",isyoId);
 
-	  // res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
-	  res.render('show');
+    server.models.isyo.findById(isyoId,function(err,obj){
+      console.log("isyo.findById",err,obj);
+
+      var body = "<p>" + obj.body.replace("\n","</p><p>") + "</p>";
+      res.render('show',{body:body});
+    });
   });
 
   server.use(router);
