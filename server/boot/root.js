@@ -94,7 +94,7 @@ module.exports = function(server) {
       console.log("isyo.findById",err,obj);
 
       var body = "<p>" + obj.body.replace("\n","</p><p>") + "</p>";
-      res.render('show',{body:body});
+      res.render('show',{body:body,isyoId:obj.id});
     });
   });
 

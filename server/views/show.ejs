@@ -38,11 +38,11 @@
               <div class="lined-paper">
                 <%- body %>
               </div>
+
+              <p>※書いた内容は本人しか見れません。</p>
+              <p>※今後のversion upで、課金した人にだけ公開する機能を作成予定です。</p>
             </div>
-            <form action="/#/edit" method="post">
-            <a href="/#/edit"><button class="btn btn-primary" >編集する</button></a>
-            <input type="hidden" name="userId"/>
-          </form>
+            <a href="/#/edit/<%= isyoId %>"><button class="btn btn-primary" >編集する</button></a>
           </div>
         </div>
       </div>
