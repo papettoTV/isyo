@@ -52,6 +52,7 @@ module.exports = function(server) {
 
     // load isyo model
     var isyo = server.models.isyo;
+    var isyoId = req.body.isyoId || "";
 
     var save_data = req.body;
 
@@ -59,27 +60,43 @@ module.exports = function(server) {
       "res":true,
       "data":save_data
     };
-        // Error: No default engine was specified and no extension was provided.
-        // res.render('save');
+    // Error: No default engine was specified and no extension was provided.
+    // res.render('save');
 
-    // save data & add uniq ID
-    isyo.create(save_data,function(err,obj){
-      console.log("isyo.create");
-      console.log(obj);
+    if(isyoId != ""){
+      save_data.id = isyoId;
 
-      json.id=obj.id;
-      // var hash = hashids.encode(obj.id);
-      var hash = hashids.encodeHex(obj.id);
-      // console.log(obj);
-      console.log("hash",hash);
-      // update
-      obj.updateAttributes({hash:hash}, function(err, obj) {
-        console.log("update");
-        console.log(err);
-        // response
-        res.json(json);
-      });
+      isyo.findById(isyoId,function(err,obj){
+        console.log("findById",err,obj);
+        obj.body = save_data.body;
+        isyo.upsert(obj,function(err,obj){
+          console.log("isyo.upsert",err,obj);
+          json.id=obj.id;
+          res.json(json);
+        });
     });
+    }else{
+      // save data & add uniq ID
+      console.log("save_data",save_data);
+      isyo.create(save_data,function(err,obj){
+        console.log("isyo.insert");
+        console.log(obj);
+
+        json.id=obj.id;
+        // var hash = hashids.encode(obj.id);
+        var hash = hashids.encodeHex(obj.id);
+        // console.log(obj);
+        console.log("hash",hash);
+        // update
+        obj.updateAttributes({hash:hash}, function(err, obj) {
+          console.log("update");
+          console.log(err);
+          // response
+          res.json(json);
+        });
+      });
+    }
+
   });
 
 

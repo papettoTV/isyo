@@ -31,7 +31,7 @@ render((
     <Route path="/" component={App}>
       <IndexRoute component={Main} />
       <Route path="/input" component={Input} />
-      <Route path="/edit" component={Edit} />
+      <Route path="/edit/:isyoId" component={Edit} />
       <Route path="/show" component={Show} />
       <Route path="/login" component={Login} />
       <Route path="/*" component={Main} />

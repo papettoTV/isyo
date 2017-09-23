@@ -48,16 +48,18 @@ export default class Show extends Component {
 	render(){
     console.log("render");
     console.dir(this.props);
+		var edit_link = "/edit/" + this.props.this.props.params.isyoId;
+
 		return(
 			<div className="bgimage">
 			<div className="container">
       <div className="lined-paper" dangerouslySetInnerHTML={{ __html: this.state.message}}>
       </div>
-			<Link to="/edit" >
+			<Link to={edit_link} >
 			<button>編集する</button>
 			</Link>
       </div>
 			</div>
-		)
+		);
 	}
 }
