@@ -48,7 +48,7 @@ export default class Show extends Component {
 	render(){
     console.log("render");
     console.dir(this.props);
-		var edit_link = "/edit/" + this.props.this.props.params.isyoId;
+		var edit_link = "/edit/" + this.props.params.isyoId;
 
 		return(
 			<div className="bgimage">

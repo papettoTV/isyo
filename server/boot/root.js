@@ -110,8 +110,17 @@ module.exports = function(server) {
     server.models.isyo.findById(isyoId,function(err,obj){
       console.log("isyo.findById",err,obj);
 
-      var body = "<p>" + obj.body.replace("\n","</p><p>") + "</p>";
-      res.render('show',{body:body,isyoId:obj.id});
+      var message_arr = obj.body.split("\n");
+      console.log(message_arr);
+      var body_html = "";
+      message_arr.forEach(function(_mes){
+        if(_mes.length > 0){
+          body_html += "<p>" + _mes + "</p>";
+        }else{
+          body_html += "<p>&nbsp;</p>";
+        }
+      })
+      res.render('show',{body:body_html,isyoId:obj.id});
     });
   });
 

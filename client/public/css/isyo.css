@@ -35,7 +35,7 @@ background-image: url(../img/header-bg.jpg);
 .lined-paper p{
   font-size: 1em;
   line-height:2.0em;
-  margin:0 0 2.0em 2.0em;
+  margin:0 0 0 1.0em;
   color:#000;
 }
 
