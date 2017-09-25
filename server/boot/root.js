@@ -44,7 +44,7 @@ module.exports = function(server) {
   });
 
   // save isyo
-  server.post('/save', function (req, res) {
+  server.post('/save', ensureLoggedIn('/notlogon'), function (req, res) {
 
     console.log("post /save",res.req.user);
     console.log(req.body);
@@ -53,6 +53,7 @@ module.exports = function(server) {
     // load isyo model
     var isyo = server.models.isyo;
     var isyoId = req.body.isyoId || "";
+    var userId = res.req.user.id;
 
     var save_data = req.body;
 
@@ -69,6 +70,7 @@ module.exports = function(server) {
       isyo.findById(isyoId,function(err,obj){
         console.log("findById",err,obj);
         obj.body = save_data.body;
+        obj.userId = userId;
         isyo.upsert(obj,function(err,obj){
           console.log("isyo.upsert",err,obj);
           json.id=obj.id;
@@ -78,6 +80,7 @@ module.exports = function(server) {
     }else{
       // save data & add uniq ID
       console.log("save_data",save_data);
+      save_data.userId = userId;
       isyo.create(save_data,function(err,obj){
         console.log("isyo.insert");
         console.log(obj);
