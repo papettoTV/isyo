@@ -11,19 +11,8 @@ module.exports = function(server) {
   // router.get('/', server.loopback.status());
   router.get('/', function (req, res) {
     console.log("get /",res.req.user);
+
 	  res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
-  });
-  router.get('/top', function (req, res) {
-	  console.log("view=top");
-
-    var isyo = server.models.isyo;
-    // isyo.status(function(a,b){
-    //   console.log("Isyo.status");
-    //   console.log(a,b);
-    // });
-
-	  // res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
-	  res.render('show');
   });
 
   router.get('/my', ensureLoggedIn('/notlogon'), function (req, res) {
@@ -104,27 +93,55 @@ module.exports = function(server) {
 
 
   // router.get('/isyo/:isyoid', function (req, res) {
-  router.get('/isyo/:isyoid', ensureLoggedIn('/'), function (req, res) {
+  router.get('/show/:isyoid', ensureLoggedIn('/'), function (req, res) {
 
     var isyoId = req.params.isyoid;
+    var userId = res.req.user.id;
 
-	  console.log("view=isyodetail",isyoId);
+	  console.log("view=isyodetail",isyoId,userId);
 
-    server.models.isyo.findById(isyoId,function(err,obj){
-      console.log("isyo.findById",err,obj);
+    server.models.isyo.find({"where":{"id":isyoId,"userId":userId}},function(err,obj){
+      if(err){
+        console.log("err occur",err);
+        res.redirect("/");
+      }else{
 
-      var message_arr = obj.body.split("\n");
-      console.log(message_arr);
-      var body_html = "";
-      message_arr.forEach(function(_mes){
-        if(_mes.length > 0){
-          body_html += "<p>" + _mes + "</p>";
-        }else{
-          body_html += "<p>&nbsp;</p>";
+        console.log("isyo.find",obj);
+        if(obj.length==0){
+          console.log("isyo not find");
+          res.redirect("/");
+          return;
         }
-      })
-      res.render('show',{body:body_html,isyoId:obj.id});
+        var body_html = "";
+        var isyo = obj[0];
+
+        var message_arr = isyo.body.split("\n");
+        console.log(message_arr);
+        message_arr.forEach(function(_mes){
+          if(_mes.length > 0){
+            body_html += "<p>" + _mes + "</p>";
+          }else{
+            body_html += "<p>&nbsp;</p>";
+          }
+        })
+      }
+      res.render('show',{body:body_html,isyoId:isyo.id});
     });
+  });
+
+
+  router.get('/authredirect', function (req, res) {
+    var userId = res.req.user.id;
+
+    server.models.isyo.find({"where":{"userId":userId}},function(err,obj){
+      console.log("/authredirect",obj);
+      if(obj.length  > 0){
+        res.redirect("/show/"+obj[0].id);
+      }else{
+        res.redirect("/#/input");
+      }
+    });
+
   });
 
   server.use(router);

@@ -37,7 +37,7 @@ export default class SaveButton extends Component {
 
         // 確認画面表示
         // window.location.href = '/#/show';
-        window.location.href = '/isyo/' + res.id;
+        window.location.href = '/show/' + res.id;
       },
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
