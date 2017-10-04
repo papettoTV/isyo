@@ -94,10 +94,13 @@ module.exports = function(server) {
 
   // router.get('/isyo/:isyoid', function (req, res) {
   router.get('/show/:isyoid', ensureLoggedIn('/'), function (req, res) {
+    // console.log(req);
 
     var isyoId = req.params.isyoid;
     var userId = res.req.user.id;
+    var url = req.protocol + '://' + req.headers.host + req.url;
 
+    console.log(url);
 	  console.log("view=isyodetail",isyoId,userId);
 
     server.models.isyo.find({"where":{"id":isyoId,"userId":userId}},function(err,obj){
@@ -125,7 +128,7 @@ module.exports = function(server) {
           }
         })
       }
-      res.render('show',{body:body_html,isyoId:isyo.id});
+      res.render('show',{body:body_html,isyoId:isyo.id,url:url});
     });
   });
 

@@ -24,7 +24,7 @@ background-image: url(../img/header-bg.jpg);
 /* note */
 .lined-paper {
     position: relative;
-    margin:40px 0 0 0;
+    margin:40px 0px 40px 0px;
     background-color: #ffffe7;
     background-image:
     linear-gradient(rgba(241,207,164,0.5) .1em, transparent .1em);
@@ -43,16 +43,16 @@ background-image: url(../img/header-bg.jpg);
 .note-enter {
   opacity: 0.01;
 }
- 
+
 .note-enter.note-enter-active {
   opacity: 1;
   transition: opacity 500ms ease-in;
 }
- 
+
 .note-leave {
   opacity: 1;
 }
- 
+
 .note-leave.note-leave-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
@@ -60,4 +60,21 @@ background-image: url(../img/header-bg.jpg);
 
 .close{
   color:"#fff";
+}
+
+/* facebook share */
+.btn-facebook {
+	  background: #3B5998;
+	  border-radius: 4px;
+	  color: #fff;
+	  border-width: 1px;
+	  border-style: solid;
+	  border-color: #263961;
+}
+.btn-facebook:link, .btn-facebook:visited {
+  color: #fff;
+}
+.btn-facebook:active, .btn-facebook:hover {
+  background: #263961;
+  color: #fff;
 }

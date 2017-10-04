@@ -4,9 +4,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
+  <meta name="description" content="遺書を書くことを通して、日々の「生きる」を少しでも充実させていくwebサービスです。">
+  <meta property="og:url"           content="<%= url %>" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="遺書一筆" />
+  <meta property="og:description"   content="遺書を書くことを通して、日々の「生きる」を少しでも充実させていくwebサービスです。" />
   <title>遺書一筆</title>
 
   <link rel="stylesheet" href="/css/bootstrap.css">
@@ -14,6 +16,7 @@
 
   <!-- Custom CSS -->
   <link href="/css/agency.css" rel="stylesheet">
+  <link href="/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,23 +31,25 @@
 
 </head>
 <body>
-  <div className="bgimage">
-    <div className="container">
-      <nav class="navbar navbar-default navbar-shrink">
-        <div class="container">
-          <a class="navbar-brand page-scroll" href="#page-top">遺書一筆</a></div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <div class="bgimage"><div class="container"><div>
-              <div class="lined-paper">
-                <%- body %>
-              </div>
-
-              <p>※書いた内容は本人しか見れません。</p>
-              <p>※今後のversion upで、課金した人にだけ公開する機能を作成予定です。</p>
+  <nav class="navbar navbar-default navbar-shrink" />
+    <div class="container">
+      <a class="navbar-brand page-scroll" href="/">遺書一筆</a></div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="bgimage">
+          <div class="container">
+            <div class="lined-paper">
+              <%- body %>
             </div>
-            <a href="/#/edit/<%= isyoId %>"><button class="btn btn-primary" >編集する</button></a>
+            <p>
+              <a href="/#/edit/<%= isyoId %>"><button class="btn btn-primary" >編集する</button></a>
+              &nbsp;&nbsp;&nbsp;
+              <a href="https://www.facebook.com/sharer/sharer.php?u=<%= url %>" title="Facebook" class="btn btn-facebook"><i class="fa fa-facebook fa-fw"></i>書いたことを残す</a>
+            </p>
+            <p>※書いた内容は本人しか見れません。</br>
+              ※今後のversion upで、課金した人にだけ公開する機能を作成予定です。
+            </p>
           </div>
         </div>
       </div>
-</body>
+    </body>
 </html>
