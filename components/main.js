@@ -28,20 +28,20 @@ export default class Main extends Component {
 	componentDidMount() {
 		console.log("componentDidMount main");
 
-		var userId = "599c4a3efca924e3759c7875";
-
-		console.log(Isyo);
-		// Isyo.get(userId,function(isyo){
-		// // Isyo.getIsyo(userId,function(isyo){
+		// var userId = "599c4a3efca924e3759c7875";
+		//
+		// // console.log(Isyo);
+		// // Isyo.get(userId,function(isyo){
+		// // // Isyo.getIsyo(userId,function(isyo){
+		// // 	console.log("show.js isyo.getIsyo",isyo);
+		// // });
+		// // let isyo = new Isyo;
+		// let isyo = Isyo();
+		// console.log(isyo);
+		// // isyo.get(userId,function(isyo){
+		// Isyo.getIsyo(userId,function(isyo){
 		// 	console.log("show.js isyo.getIsyo",isyo);
 		// });
-		// let isyo = new Isyo;
-		let isyo = Isyo();
-		console.log(isyo);
-		isyo.get(userId,function(isyo){
-		// Isyo.getIsyo(userId,function(isyo){
-			console.log("show.js isyo.getIsyo",isyo);
-		});
 
 		var that = this;
 
@@ -76,23 +76,6 @@ export default class Main extends Component {
 
 		console.log("render main.js");
 
-		// var that = this;
-    // $.ajax({
-    //   url: "/logon",
-    //   dataType: 'json',
-    //   type: 'GET',
-    //   success: function(res) {
-    //     console.log("get logon",res);
-		//
-    //     that.setState({isLoading: false,userId:res.userId});
-    //   },
-    //   error: function(xhr, status, err) {
-    //     console.error(this.props.url, status, err.toString());
-		//
-    //     that.setState({isLoading: false});
-    //   }.bind(this)
-    // });
-
 		return(
       <header>
       <div className="container">
@@ -109,10 +92,8 @@ export default class Main extends Component {
 			</button>
 			</Link>
 			:
-			<a href="/auth/facebook">
-			<button type="button" className="btn btn-primary btn-lg">
-			書いてみる(ログインする)
-			</button>
+			<a href="/auth/facebook" title="Facebook" className="btn btn-facebook">
+			<i className="fa fa-facebook fa-fw"></i>書いてみる（facebookログイン）
 			</a>
 		}
       </div>
