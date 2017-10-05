@@ -77,7 +77,7 @@ export default class Main extends Component {
 		console.log("render main.js");
 
 		return(
-      <header>
+      <header id="top">
       <div className="container">
       <div className="intro-text">
       <div className="intro-heading">遺書を書いてみよう</div>

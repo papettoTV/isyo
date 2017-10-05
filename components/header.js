@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import ListAbout from './ListAbout';
+import ListReason from './ListReason';
+import ListContact from './ListContact';
 
 export default class Header extends Component {
 
@@ -26,15 +29,9 @@ export default class Header extends Component {
                     <li className="hidden">
                         <a href="#page-top"></a>
                     </li>
-                    <li>
-                        <a className="page-scroll" href="#about">このサービスについて</a>
-                    </li>
-                    <li>
-                        <a className="page-scroll" href="#services">どうして作ったか</a>
-                    </li>
-                    <li>
-                        <a className="page-scroll" href="#contact">お問い合わせ</a>
-                    </li>
+										<ListAbout />
+										<ListReason />
+										<ListContact />
                 </ul>
             </div>
         </div>
