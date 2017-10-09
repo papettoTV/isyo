@@ -16,8 +16,6 @@ var base_setting = {
 
 var facebook_login = Object.assign(base_setting,auth_setting);
 
-console.log("facebook_login",facebook_login);
-
 module.exports = {
  "facebook-login": facebook_login
 }
