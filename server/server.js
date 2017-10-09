@@ -26,7 +26,8 @@ var flash      = require('express-flash');
 // attempt to build the providers/passport config
 var config = {};
 try {
-  config = require('../providers.json');
+  // config = require('../providers.json');
+  config = require('../providers.js');
 } catch (err) {
   console.trace(err);
   process.exit(1); // fatal
