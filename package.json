@@ -5,10 +5,8 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
-    "preinstall": "echo preinstall",
-    "postinstall": "echo postinstall",
-    "heroku-preinstall": "echo heroku-preinstall",
-    "heroku-postbuild": "gulp build"
+    "heroku-postbuild": "gulp build",
+    "postinstall": "cp cookie_index.js node_modules/cookie/index.js"
   },
   "dependencies": {
     "babel-plugin-transform-object-assign": "^6.3.13",
