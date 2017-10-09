@@ -1,9 +1,0 @@
-{
-  "mongodb_dev": {
-    "host": "ds013495.mlab.com",
-    "port": 13495,
-    "database": "heroku_tnxl73zj",
-    "name": "isyo",
-    "connector": "mongodb"
-  }
-}
