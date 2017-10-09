@@ -5,7 +5,9 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
+    "preinstall": "echo preinstall",
     "postinstall": "echo postinstall",
+    "heroku-preinstall": "echo heroku-preinstall",
     "heroku-postbuild": "gulp build"
   },
   "dependencies": {
