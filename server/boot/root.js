@@ -92,33 +92,53 @@ module.exports = function(server) {
   });
 
 
-  // router.get('/isyo/:isyoid', function (req, res) {
-  router.get('/show/:isyoid', ensureLoggedIn('/'), function (req, res) {
+  router.get('/show/:isyoid', function (req, res) {
+  // router.get('/show/:isyoid', ensureLoggedIn('/'), function (req, res) {
     // console.log(req);
+    // console.log(res.req.user);
 
     var isyoId = req.params.isyoid;
-    var userId = res.req.user.id;
+    var userId = null;
+    if(res.req.user){
+      userId = res.req.user.id || null;
+    }
     var url = req.protocol + '://' + req.headers.host + req.url;
 
     console.log(url);
 	  console.log("view=isyodetail",isyoId,userId);
 
-    server.models.isyo.find({"where":{"id":isyoId,"userId":userId}},function(err,obj){
+    server.models.isyo.find({"where":{"id":isyoId}},function(err,isyo){
       if(err){
         console.log("err occur",err);
         res.redirect("/");
-      }else{
+        return;
+      }
 
-        console.log("isyo.find",obj);
-        if(obj.length==0){
-          console.log("isyo not find");
+      console.log("isyo.find",isyo);
+
+      // 執筆者のプロファイル情報取得
+      // TODO isyo.find と同時にqueryする
+      server.models.userIdentity.find({"where":{"userId":isyo[0].userId}},function(err,userIdentity){
+        console.log("userIdentity",userIdentity);
+
+        if(err){
+          console.log("err occur",err);
           res.redirect("/");
           return;
         }
-        var body_html = "";
-        var isyo = obj[0];
 
-        var message_arr = isyo.body.split("\n");
+        // 他人の記事を見ようとした場合
+        if(String(isyo[0].userId) != userId){
+          console.log("isyo not yours",isyo[0].userId,userId);
+          res.render("hide",{url:url,profile:userIdentity[0].profile});
+          return;
+        }
+
+        // 自身の記事の場合
+        var body_html = "";
+        var _isyo = isyo[0];
+
+        var message_arr = _isyo.body.split("\n");
         console.log(message_arr);
         message_arr.forEach(function(_mes){
           if(_mes.length > 0){
@@ -126,11 +146,12 @@ module.exports = function(server) {
           }else{
             body_html += "<p>&nbsp;</p>";
           }
-        })
-      }
-      res.render('show',{body:body_html,isyoId:isyo.id,url:url});
-    });
-  });
+        });
+        res.render('show',{body:body_html,isyoId:_isyo.id,url:url});
+      }); // userIdentity.find
+
+    }); // isyo.find
+  }); // router.get
 
 
   router.get('/authredirect', function (req, res) {
