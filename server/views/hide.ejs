@@ -33,13 +33,18 @@
 <body>
   <nav class="navbar navbar-default navbar-shrink" />
     <div class="container">
-      <a class="navbar-brand page-scroll" href="/">遺書一筆</a></div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="navbar-header page-scroll">
+	<a class="navbar-brand page-scroll" href="/">遺書一筆</a>
+      </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		    <a class="nav navbar-nav navbar-right" href="https://www.facebook.com/<%= profile.id %>" target="_blank"><img src="https://graph.facebook.com/v2.10/<%= profile.id %>/picture" /></a>
+            </div>
         <div class="bgimage">
           <div class="container">
+            <p><%= profile.displayName %> さんは、遺書を残したようです。</p>
             <div class="lined-paper">
             </div>
-            <p><%= profile.displayName %> さんは、遺書を残したようです。</p>
+	    <div class="isyo-secret" />
           </div>
         </div>
       </div>
