@@ -1,0 +1,36 @@
+{
+  "name": "isyo",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "body": {
+      "type": "string",
+      "required": true
+    },
+    "open_status": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "hash_key": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date"
+    },
+    "updated": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

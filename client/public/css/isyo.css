@@ -1,0 +1,94 @@
+body {
+  background-color:#000;
+}
+
+.bgimage {
+background-image: url(../img/header-bg.jpg);
+    background-repeat: none;
+    background-attachment: scroll;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    /* text-align: center; */
+    color: #fff;
+    height:1000px;
+}
+
+.navbar {
+  background-color:#333;
+  margin-bottom: 0px;
+}
+
+/* note */
+.lined-paper {
+    position: relative;
+    margin:40px 0px 40px 0px;
+    background-color: #ffffe7;
+    background-image:
+    linear-gradient(rgba(241,207,164,0.5) .1em, transparent .1em);
+    background-size: 100% 2.0em;
+    line-height:2.0em;
+}
+
+.lined-paper p{
+  font-size: 1em;
+  line-height:2.0em;
+  margin:0 0 0 1.0em;
+  color:#000;
+}
+
+/* show animation */
+.note-enter {
+  opacity: 0.01;
+}
+
+.note-enter.note-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.note-leave {
+  opacity: 1;
+}
+
+.note-leave.note-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.close{
+  color:"#fff";
+}
+
+/* facebook share */
+.btn-facebook {
+	  background: #3B5998;
+	  border-radius: 4px;
+	  color: #fff;
+	  border-width: 1px;
+	  border-style: solid;
+	  border-color: #263961;
+}
+.btn-facebook:link, .btn-facebook:visited {
+  color: #fff;
+}
+.btn-facebook:active, .btn-facebook:hover {
+  background: #263961;
+  color: #fff;
+}
+
+.isyo-secret{
+background-image: url(../img/isyo-secret.png);
+    background-repeat: none;
+    background-attachment: scroll;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    /* text-align: center; */
+    color: #fff;
+    height:600px;
+}
