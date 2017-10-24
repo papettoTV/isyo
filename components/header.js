@@ -25,7 +25,7 @@ export default class Header extends Component {
                 <a className="navbar-brand page-scroll" href="#page-top">遺書一筆</a>
             </div>
 
-            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div className="navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul className="nav navbar-nav navbar-right">
                     <li className="hidden">
                         <a href="#page-top"></a>
