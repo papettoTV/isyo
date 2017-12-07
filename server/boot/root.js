@@ -123,6 +123,101 @@ module.exports = function(server) {
 
   });
 
+  // router.get('/pay/', function (req, res) {
+  // server.get('/pay', function (req, res) {
+  server.post('/pay', function (req, res) {
+    // server.post('/pay', ensureLoggedIn('/notlogon'), function (req, res) {
+
+    console.log("/pay request",req.body);
+    var post_data = req.body;
+
+    // stripe info
+    var stripe = require('stripe')(process.env.STRIPE_API_KEY);
+    var userDataId = "cus_BqVAMhKUnuPJaZ";
+    var userData = {id: userDataId, email: 'customer@example.com'};
+
+    // var userId = res.req.user.id;
+    var userId = "59dd62bbb2372ff96cd1ed1c";
+    var isyoId = "59e4d12a906d420e4221d86c";
+
+    var stripeCustomers;
+    if(userData.id){
+      stripeCustomers = stripe.customers.retrieve(userData.id);
+    }else{
+      stripeCustomers = stripe.customers.create({email:userData.email});
+    }
+
+    var obj={
+      amount:1000,
+      userId:userId,
+      isyoId:isyoId
+    };
+    var payment = server.models.payment;
+    payment.upsert(obj,function(err,obj){
+      console.log("isyo.upsert",err,obj);
+    });
+    // return;
+
+    // Create a new customer and then a new charge for that customer:
+    // stripe.customers.create({
+    // stripe.customers.retrieve(userData.id).then(function(err,customer){
+    stripeCustomers.then(function(customer){
+      console.log("then customer",customer.id,customer.email);
+      return stripe.customers.createSource(customer.id, {
+        // source: 'tok_visa'
+        source: {
+          "customer": userDataId,
+          "object": "card",
+          "exp_month": post_data.expiry_month,
+          "exp_year": "20" + post_data.expiry_year,
+          "number": post_data.number,
+          "cvc":post_data.cvc,
+          "currency":"jpy",
+          "default_for_currency":true,
+        }
+      });
+    }).then(function(source) {
+      console.log("then createSource",source);
+      return stripe.charges.create({
+        amount: 1000,
+        currency: 'jpy',
+        customer: source.customer
+      });
+    }).then(function(charge) {
+      console.log("then charge",charge);
+      // New charge created on a new customer
+      var payment = server.models.payment;
+      console.log("payment",payment);
+      var obj={
+        amount:1000,
+        userId:userId,
+        isyoId:isyoId,
+        updated:new Date(),
+      };
+      payment.upsert(obj,function(err,_obj){
+        console.log("isyo.upsert",err,_obj);
+        var json = {
+          charge : charge,
+          payment : _obj,
+        };
+
+        res.json(json);
+      });
+
+    }).catch(function(err) {
+      if(err){
+        console.log("/pay error",err);
+
+        var json = {
+          error : err.raw
+        };
+
+        res.json(json);
+      }
+    });
+
+  });
+
   server.use(router);
 
 

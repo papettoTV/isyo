@@ -44,5 +44,9 @@
   "isyo": {
     "dataSource": "mongodb_dev",
     "public": true
+  },
+  "payment": {
+    "dataSource": "mongodb_dev",
+    "public": true
   }
 }

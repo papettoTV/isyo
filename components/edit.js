@@ -77,7 +77,6 @@ export default class Edit extends Component {
 			<textarea id="body" name="body" className="form-control" rows="20" value={this.state.message} onChange={this.handleChange.bind(this)} />
 			<input id="isyoId" name="isyoId" type="hidden" value={this.state.isyoId} />
 			<p>※書いた内容は書いた本人しか見れません。</p>
-			<p>※今後のversion upで、課金した人にだけ公開する機能を作成予定です。</p>
 			<SaveButton showBody={this.showBody}/>
 			</div>
 			</div>

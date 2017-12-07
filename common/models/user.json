@@ -30,6 +30,14 @@
       "options": {
         "disableInclude": true
       }
+    },
+    "payment": {
+      "type": "hasMany",
+      "model": "payment",
+      "foreignKey": "userId",
+      "options": {
+        "disableInclude": true
+      }
     }
   }
 }
