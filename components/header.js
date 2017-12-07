@@ -3,6 +3,7 @@ import ListAbout from './ListAbout';
 import ListReason from './ListReason';
 import ListContact from './ListContact';
 import ListFaq from './ListFaq';
+import Card from './card';
 
 export default class Header extends Component {
 
@@ -33,6 +34,7 @@ export default class Header extends Component {
 										<ListAbout />
 										<ListReason />
 										<ListFaq />
+										<Card />
                 </ul>
             </div>
         </div>
