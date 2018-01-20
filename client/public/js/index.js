@@ -1,6 +1,8 @@
 import React , { Component } from 'react'
 import {render} from 'react-dom'
-import { Router, Route, IndexRoute, Link, hashHistory ,  Redirect} from 'react-router'
+// import { Router, Route, IndexRoute, Link, hashHistory ,  Redirect} from 'react-router'
+import { BrowserRouter, Route, hashHistory ,IndexRoute} from 'react-router-dom'
+// import {hashRouter} from 'react-router-dom'
 import App from '../../../components/app'
 import Main from '../../../components/main'
 // import FbLogin from '../../../components/FacebookLogin';
@@ -10,6 +12,8 @@ import Show from '../../../components/show';
 import FbLogin from '../../../components/FacebookLogin';
 import Edit from '../../../components/edit';
 import Login from '../../../components/login';
+
+import Header from './../../../components/header'
 
 // render(
 //   <App title="title1" />,
@@ -27,14 +31,14 @@ import Login from '../../../components/login';
 //
 
 render((
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={Main} />
+  <BrowserRouter history={hashHistory}>
+	<div>
+	<Header />
+      <Route exact path="/" component={Main} />
       <Route path="/input" component={Input} />
       <Route path="/edit/:isyoHash" component={Edit} />
       <Route path="/show/:isyoHash" component={Show} />
       <Route path="/login" component={Login} />
-      <Route path="/*" component={Main} />
-    </Route>
-  </Router>
+	</div>
+  </BrowserRouter>
 ), document.getElementById('main'))
