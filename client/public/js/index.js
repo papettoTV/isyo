@@ -8,7 +8,7 @@ import Main from '../../../components/main'
 // import FbLogin from '../../../components/FacebookLogin';
 // import Index from '../../../components/index';
 import Input from '../../../components/input';
-import Show from '../../../components/show';
+// import Show from '../../../components/show';
 import FbLogin from '../../../components/FacebookLogin';
 import Edit from '../../../components/edit';
 import Login from '../../../components/login';
