@@ -16,7 +16,7 @@ export default class SaveButton extends Component {
 
       var data = {
         body : $("#body").val(),
-        userId : $("#userId").val(),
+        userHash : $("#userId").val(),
         isyoId : $("#isyoId").val(),
       };
 
@@ -35,9 +35,14 @@ export default class SaveButton extends Component {
         that.setState({isLoading: false});
         // that.props.showBody(res.data.body);
 
+        var url = '/show/' + res.data.hash;
+        // 新規登録の場合
+        if(res.new=="1"){
+          url += "/new";
+        }
+
         // 確認画面表示
-        // window.location.href = '/#/show';
-        window.location.href = '/show/' + res.id;
+        window.location.href = url;
       },
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());

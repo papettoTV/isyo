@@ -1,50 +1,22 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="遺書を書くことを通して、日々の「生きる」を少しでも充実させていくwebサービスです。">
-  <meta property="og:url"           content="<%= url %>" />
-  <meta property="og:type"          content="website" />
-  <meta property="og:title"         content="遺書一筆" />
-  <meta property="og:description"   content="遺書を書くことを通して、日々の「生きる」を少しでも充実させていくwebサービスです。" />
-  <title>遺書一筆</title>
-
-  <link rel="stylesheet" href="/css/bootstrap.css">
-  <link rel="stylesheet" href="/css/isyo.css">
-
-  <!-- Custom CSS -->
-  <link href="/css/agency.css" rel="stylesheet">
-  <link href="/css/font-awesome.min.css" rel="stylesheet">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <script src="/js/fb.me/react-0.13.3.min.js"></script>
-  <script src="/js/fb.me/JSXTransformer-0.13.3.js"></script>
-  <script src="/js/react-bootstrap.min.js"></script>
-
-</head>
+<%- include('./header', {url:url,ogp_image_url:ogp_image_url,app_id:app_id}) %>
 <body>
   <nav class="navbar navbar-default navbar-shrink" />
     <div class="container">
       <div class="navbar-header page-scroll">
-	<a class="navbar-brand page-scroll" href="/">遺書一筆</a>
+      	<a class="navbar-brand page-scroll" href="/">遺書一筆</a>
       </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="navbar-collapse" id="bs-example-navbar-collapse-1">
 		    <a class="nav navbar-nav navbar-right" href="https://www.facebook.com/<%= profile.id %>" target="_blank"><img src="https://graph.facebook.com/v2.10/<%= profile.id %>/picture" /></a>
             </div>
         <div class="bgimage">
           <div class="container">
-            <p><%= profile.displayName %> さんは、遺書を残したようです。</p>
-            <div class="lined-paper">
-            </div>
-	    <div class="isyo-secret" />
+            <p><%= profile.displayName %> さんは、遺書を書いたようです。</p>
+            <p>あなたも書いてみませんか？
+            <a href="/auth/facebook" title="Faceboo Login" class="btn btn-facebook">
+              <i className="fa fa-facebook fa-fw"></i>書いてみる（facebookログイン）
+            </a>
+          </p>
+            <div class="isyo-secret" />
           </div>
         </div>
       </div>

@@ -31,8 +31,8 @@ render((
     <Route path="/" component={App}>
       <IndexRoute component={Main} />
       <Route path="/input" component={Input} />
-      <Route path="/edit/:isyoId" component={Edit} />
-      <Route path="/show" component={Show} />
+      <Route path="/edit/:isyoHash" component={Edit} />
+      <Route path="/show/:isyoHash" component={Show} />
       <Route path="/login" component={Login} />
       <Route path="/*" component={Main} />
     </Route>

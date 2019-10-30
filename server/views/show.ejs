@@ -1,49 +1,47 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="遺書を書くことを通して、日々の「生きる」を少しでも充実させていくwebサービスです。">
-  <meta property="og:url"           content="<%= url %>" />
-  <meta property="og:type"          content="website" />
-  <meta property="og:title"         content="遺書一筆" />
-  <meta property="og:description"   content="遺書を書くことを通して、日々の「生きる」を少しでも充実させていくwebサービスです。" />
-  <title>遺書一筆</title>
-
-  <link rel="stylesheet" href="/css/bootstrap.css">
-  <link rel="stylesheet" href="/css/isyo.css">
-
-  <!-- Custom CSS -->
-  <link href="/css/agency.css" rel="stylesheet">
-  <link href="/css/font-awesome.min.css" rel="stylesheet">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <script src="/js/fb.me/react-0.13.3.min.js"></script>
-  <script src="/js/fb.me/JSXTransformer-0.13.3.js"></script>
-  <script src="/js/react-bootstrap.min.js"></script>
-
-</head>
+<%- include('./header', {url:url,ogp_image_url:ogp_image_url,app_id:app_id}) %>
 <body>
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '<%= app_id %>',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v2.10'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
   <nav class="navbar navbar-default navbar-shrink" />
     <div class="container">
       <a class="navbar-brand page-scroll" href="/">遺書一筆</a></div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="navbar-collapse" id="bs-example-navbar-collapse-1">
         <div class="bgimage">
           <div class="container">
             <div class="lined-paper">
               <%- body %>
             </div>
             <p>
-              <a href="/#/edit/<%= isyoId %>"><button class="btn btn-primary" >編集する</button></a>
+              <a href="/#/edit/<%= isyoHash %>"><button class="btn btn-primary" >編集する</button></a>
               &nbsp;&nbsp;&nbsp;
-              <a href="https://www.facebook.com/sharer/sharer.php?u=<%= url %>" title="Facebook" class="btn btn-facebook"><i class="fa fa-facebook fa-fw"></i>書いたことを残す</a>
+              <a href="#" title="Facebook" class="btn btn-facebook" id="shareBtn"><i class="fa fa-facebook fa-fw"></i>書いたことを残す</a>
+              <script>
+              document.getElementById('shareBtn').onclick = function() {
+                FB.ui({
+                  method:  'share',
+                  display: 'popup',
+                  hashtag: "#遺書一筆",
+                  href: '<%= url %>'
+                }, function(response){});
+              }
+              </script>
             </p>
             <p>※書いた内容は本人しか見れません。</br>
               ※今後のversion upで、課金した人にだけ公開する機能を作成予定です。
@@ -51,5 +49,27 @@
           </div>
         </div>
       </div>
+  <%if (newflg=="new") { %>
+      <!-- Modal -->
+<div class="modal fade" id="registerd">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">保存されました！</h5>
+      </div>
+      <div class="modal-body">
+        <p>何か感じましたか？その想いを大切にしてください！<br />
+          もしもの時のことを考えて、あなたの遺書のURLをシェアもできます。<br />(書いた内容は公開されません。)</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$('#registerd').modal("show");
+</script>
+<% } %>
     </body>
 </html>

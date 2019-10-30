@@ -1,32 +1,25 @@
-# Install
-```
-git clone https://github.com/papettoTV/isyo
-```
+# Service
+「遺書一筆」というサービスです。
+https://isyo.herokuapp.com
 
-# Run
-set env params
+## Description
+このサービスを遺書を残すことが出来ます。
 
-ex)
-```
-CALLBACK_URL: https://yourdomain/auth/facebook/login
-DB_HOST:      <db host>
-DB_NAME:      <db name>
-DB_PASSWORD:  <db password>
-DB_PORT:      <db port>
-DB_USER:      <db user>
-NODE_ENV:     local
-callbackURL:  https://youdomain/auth/facebook/callback
-clientID:     <facebook clientID>
-clientSecret: <facebook clientSecret>
-```
 
-modify cookie/index.js
-```
-copy cookie_index.js node_modules/cookie/index.js
-```
-for error 'Error: maxAge should be a Number'
+## Features
 
-and run
-```
-node .
-```
+- 遺書を残すことが出来ます
+- 書いた遺書は誰にも見られません
+- Facebookアカウントがあれば誰でも利用できます
+
+## Installation
+
+    $ git clone https://github.com/papettoTV/isyo
+
+## Author
+
+[@papettoTV](https://twitter.com/papettoTV)
+
+## License
+
+This software is released under the MIT License, see LICENSE.txt.

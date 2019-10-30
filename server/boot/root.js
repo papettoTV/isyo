@@ -12,11 +12,11 @@ module.exports = function(server) {
   router.get('/', function (req, res) {
     console.log("get /",res.req.user);
 
-	  res.sendFile(path.join(__dirname+'/../../client/public/index.html'));
-  });
-
-  router.get('/my', ensureLoggedIn('/notlogon'), function (req, res) {
-	  res.sendFile(path.join(__dirname+'/../../client/public/my.html'));
+    var schema = req.headers["x-forwarded-proto"];
+    var url = schema + '://' + req.headers.host + req.url;
+    var app_id = process.env.clientID;
+    var ogp_image_url = schema + '://' + req.headers.host + "/img/isyo-ogp.png";
+    res.render("index",{url:url,app_id:app_id,ogp_image_url:ogp_image_url});
   });
 
   router.get('/logon', ensureLoggedIn('/notlogon'), function (req, res) {
@@ -41,7 +41,11 @@ module.exports = function(server) {
 
     // load isyo model
     var isyo = server.models.isyo;
+<<<<<<< HEAD
     var isyoId = req.body.isyoId || "";
+=======
+    var isyoHash = req.body.isyoId || "";
+>>>>>>> 7a6413c41940a75409f09aa784a96c3c7ebd5153
     var userId = res.req.user.id;
 
     var save_data = req.body;
@@ -53,6 +57,7 @@ module.exports = function(server) {
     // Error: No default engine was specified and no extension was provided.
     // res.render('save');
 
+<<<<<<< HEAD
     if(isyoId != ""){
       save_data.id = isyoId;
 
@@ -66,6 +71,24 @@ module.exports = function(server) {
           res.json(json);
         });
     });
+=======
+    // 更新
+    if(isyoHash != ""){
+      save_data.hash = isyoHash;
+
+      // isyo.findById(isyoId,function(err,obj){
+      isyo.find({"where":{"hash":isyoHash}},function(err,_obj){
+        console.log("findByHash",err,_obj);
+        var obj = _obj[0];
+        obj.body = save_data.body;
+        obj.userId = userId;
+        isyo.upsert(obj,function(err,_obj){
+          console.log("isyo.upsert",err,_obj);
+          res.json(json);
+        });
+    });
+    // 新規登録
+>>>>>>> 7a6413c41940a75409f09aa784a96c3c7ebd5153
     }else{
       // save data & add uniq ID
       console.log("save_data",save_data);
@@ -84,6 +107,11 @@ module.exports = function(server) {
           console.log("update");
           console.log(err);
           // response
+<<<<<<< HEAD
+=======
+          json.data.hash = hash;
+          json.new = 1;
+>>>>>>> 7a6413c41940a75409f09aa784a96c3c7ebd5153
           res.json(json);
         });
       });
@@ -92,22 +120,75 @@ module.exports = function(server) {
   });
 
 
+<<<<<<< HEAD
   router.get('/show/:isyoid', function (req, res) {
   // router.get('/show/:isyoid', ensureLoggedIn('/'), function (req, res) {
     // console.log(req);
     // console.log(res.req.user);
 
     var isyoId = req.params.isyoid;
+=======
+  router.get('/show/:isyoHash', function (req, res) {
+    var newflg = null;
+    show(req,res,server,newflg);
+  });
+  router.get('/show/:isyoHash/:newflg', function (req, res) {
+    var newflg = req.params.newflg;
+    show(req,res,server,newflg);
+  }); // router.get
+
+
+  router.get('/authredirect', function (req, res) {
+    var userId = res.req.user.id;
+
+    server.models.isyo.find({"where":{"userId":userId}},function(err,obj){
+      console.log("/authredirect",obj);
+      if(obj.length  > 0){
+        // res.redirect("/show/"+obj[0].id);
+        // res.redirect("/#/show/"+obj[0].hash);
+        res.redirect("/show/"+obj[0].hash);
+      }else{
+        res.redirect("/#/input");
+      }
+    });
+
+  });
+
+  server.use(router);
+
+
+  function show(req,res,server,newflg){
+
+    // console.log(req);
+    // console.log("res=",res);
+    // console.log(res.req.user);
+
+    var schema = req.headers["x-forwarded-proto"];
+    // console.log("schema=",schema);
+
+    var isyoHash = req.params.isyoHash;
+>>>>>>> 7a6413c41940a75409f09aa784a96c3c7ebd5153
     var userId = null;
     if(res.req.user){
       userId = res.req.user.id || null;
     }
+<<<<<<< HEAD
     var url = req.protocol + '://' + req.headers.host + req.url;
 
     console.log(url);
 	  console.log("view=isyodetail",isyoId,userId);
 
     server.models.isyo.find({"where":{"id":isyoId}},function(err,isyo){
+=======
+    var url = schema + '://' + req.headers.host + req.url;
+    var app_id = process.env.clientID;
+    var ogp_image_url = schema + '://' + req.headers.host + "/img/isyo-ogp-fb.png";
+
+    console.log(url);
+    console.log("view=isyodetail",isyoHash,userId);
+
+    server.models.isyo.find({"where":{"hash":isyoHash}},function(err,isyo){
+>>>>>>> 7a6413c41940a75409f09aa784a96c3c7ebd5153
       if(err){
         console.log("err occur",err);
         res.redirect("/");
@@ -130,7 +211,11 @@ module.exports = function(server) {
         // 他人の記事を見ようとした場合
         if(String(isyo[0].userId) != userId){
           console.log("isyo not yours",isyo[0].userId,userId);
+<<<<<<< HEAD
           res.render("hide",{url:url,profile:userIdentity[0].profile});
+=======
+          res.render("hide",{url:url,app_id:app_id,profile:userIdentity[0].profile,ogp_image_url:ogp_image_url});
+>>>>>>> 7a6413c41940a75409f09aa784a96c3c7ebd5153
           return;
         }
 
@@ -147,6 +232,7 @@ module.exports = function(server) {
             body_html += "<p>&nbsp;</p>";
           }
         });
+<<<<<<< HEAD
         res.render('show',{body:body_html,isyoId:_isyo.id,url:url});
       }); // userIdentity.find
 
@@ -169,4 +255,12 @@ module.exports = function(server) {
   });
 
   server.use(router);
+=======
+        res.render('show',{body:body_html,isyoHash:_isyo.hash,url:url,app_id:app_id,ogp_image_url:ogp_image_url,newflg:newflg});
+      }); // userIdentity.find
+
+    }); // isyo.find
+  }
+
+>>>>>>> 7a6413c41940a75409f09aa784a96c3c7ebd5153
 };

@@ -9,7 +9,7 @@ export default class Edit extends Component {
 		super(props);
 		this.state = {
 			message: "",
-			userId: null
+			isyoId: ""
 		};
 
 		this.showBody = this.showBody.bind(this);
@@ -19,14 +19,15 @@ export default class Edit extends Component {
 		var that = this;
 		// TODO model内 で処理するようリファクタリングする
       $.ajax({
-        url: '/api/isyos?filter={"where":{"id":"' + this.props.params.isyoId + '"}}',
+        url: '/api/isyos?filter={"where":{"hash":"' + this.props.params.isyoHash + '"}}',
         type: 'GET',
         success: function(res) {
-          console.log("get api success",res);
+          console.log("editjs get api success",res);
           // this.setState({data: data})
 
 					var body = res[0].body;
-          that.setState({message: body});
+					var hash = res[0].hash;
+          that.setState({message: body,isyoId:hash});
         },
       }).fail((responseData) => {
         if (responseData.responseCode) {
@@ -74,7 +75,7 @@ export default class Edit extends Component {
 			<div className="container">
 			<div className="form-group">
 			<textarea id="body" name="body" className="form-control" rows="20" value={this.state.message} onChange={this.handleChange.bind(this)} />
-			<input id="isyoId" name="isyoId" type="hidden" value={this.props.params.isyoId} />
+			<input id="isyoId" name="isyoId" type="hidden" value={this.state.isyoId} />
 			<p>※書いた内容は書いた本人しか見れません。</p>
 			<p>※今後のversion upで、課金した人にだけ公開する機能を作成予定です。</p>
 			<SaveButton showBody={this.showBody}/>
